@@ -1,36 +1,29 @@
 const http = require("http");
 
-const fs = require("fs")
+const fs = require("fs");
+const url = require("url");
 
 const myServer = http.createServer((req, res) => {
-
-    // console.log(req.headers);
-    // const log = `${Date.now()}:${req.url} New request Received \n`;
-    // fs.appendFile("log.txt", log, (err, data) =>{
-    // switch(req.url){
-    //     case '/': res.end("Home Page");
-    //     break;
-    //     case '/about': res.end("I'm Pragya Pandey");
-    //     break
-    //     default:
-    //         res.end("404 Not found")
-    // }
-    //     res.end("Hello From Server Again");
-    // }); 
-    if(req.url=='/'){
-        res.end("hello world");
+ const log = `${Date.now()}:${req.url} New request Received \n`;
+ const myUrl = url.parse(req.url,true);
+ console.log(myUrl);
+ 
+     fs.appendFile("log.txt", log, (err, data) =>{
+        
+    switch(myUrl.pathname){
+        case '/': res.end("Home Page");
+        break;
+        case '/about':
+           const qp =  
+        res.end("I'm Pragya Pandey");
+        break;
+        default:
+            res.end("404 Not found")
     }
-    else if(req.url=='/pragya'){
-       
-        res.end("my name is praya pandey  ")
-        console.log(data)
-    }
-    else{
-        res.end("not-found page ")
-    }
+    }); 
+    
 });
 
-const port=8000;
-myServer.listen(port, () => console.log("Server Started"));
+myServer.listen(8000, () => console.log("Server Started"));
 
 
